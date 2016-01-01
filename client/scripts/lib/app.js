@@ -1,6 +1,7 @@
 angular
   .module('Coach', [
     'angular-meteor',
+    // 'angular-meteor.auth',
     'ionic',
     'angularMoment'
   ]);

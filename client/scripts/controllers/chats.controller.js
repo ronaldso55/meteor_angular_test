@@ -6,9 +6,10 @@ angular
  * 1. scope is bind to this via controller-as pattern.
  * 2. $reactive is added from the get-go.
  */
-function ChatsCtrl ($scope, $reactive) {
+function ChatsCtrl ($scope, $reactive, NewChat) {
   $reactive(this).attach($scope);
 
+  this.showNewChatModal = showNewChatModal;
   this.remove = remove;
 
   this.helpers({
@@ -18,8 +19,11 @@ function ChatsCtrl ($scope, $reactive) {
   });
 
   ////////////
+  function showNewChatModal() {
+    NewChat.showModal();
+  }
 
   function remove (chat) {
-    this.data.remove(chat);
+    Meteor.call('removeChat', chat._id);
   }
 }
