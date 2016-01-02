@@ -1,16 +1,20 @@
-angular
-  .module('Coach')
-  .filter('calendar', calendar);
+(function() {
+    'use strict';
 
-function calendar () {
-  return function (time) {
-    if (!time) return;
+    angular
+      .module('Coach')
+      .filter('calendar', calendar);
 
-    return moment(time).calendar(null, {
-      lastDay : '[Yesterday]',
-      sameDay : 'LT',
-      lastWeek : 'dddd',
-      sameElse : 'DD/MM/YY'
-    });
-  };
-}
+    function calendar () {
+      return function (time) {
+        if (!time) return;
+
+        return moment(time).calendar(null, {
+          lastDay : '[Yesterday]',
+          sameDay : 'LT',
+          lastWeek : 'dddd',
+          sameElse : 'DD/MM/YY'
+        });
+      };
+    }
+})();

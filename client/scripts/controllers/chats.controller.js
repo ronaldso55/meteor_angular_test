@@ -1,29 +1,37 @@
-angular
-  .module('Coach')
-  .controller('ChatsCtrl', ChatsCtrl);
+(function() {
+    'use strict';
 
-/**
- * 1. scope is bind to this via controller-as pattern.
- * 2. $reactive is added from the get-go.
- */
-function ChatsCtrl ($scope, $reactive, NewChat) {
-  $reactive(this).attach($scope);
+    angular
+      .module('Coach')
+      .controller('ChatsCtrl', ChatsCtrl);
 
-  this.showNewChatModal = showNewChatModal;
-  this.remove = remove;
+    ChatsCtrl.$inject = ['$scope', '$reactive', 'NewChat'];
 
-  this.helpers({
-    data() {
-      return Chats.find();
+    /**
+     * 1. scope is bind to this via controller-as pattern.
+     * 2. $reactive is added from the get-go.
+     */
+    function ChatsCtrl ($scope, $reactive, NewChat) {
+      var vm = this;
+
+      $reactive(vm).attach($scope);
+
+      vm.showNewChatModal = showNewChatModal;
+      vm.remove = remove;
+
+      vm.helpers({
+        data() {
+          return Chats.find();
+        }
+      });
+
+      ////////////
+      function showNewChatModal() {
+        NewChat.showModal();
+      }
+
+      function remove (chat) {
+        Meteor.call('removeChat', chat._id);
+      }
     }
-  });
-
-  ////////////
-  function showNewChatModal() {
-    NewChat.showModal();
-  }
-
-  function remove (chat) {
-    Meteor.call('removeChat', chat._id);
-  }
-}
+})();
