@@ -21,7 +21,10 @@ function config($stateProvider, $urlRouterProvider) {
             deferred.resolve();
           }
           return deferred.promise;
-        }]
+        }],
+        chats() {
+          return Meteor.subscribe('chats');
+        }
       }
     })
     .state('tab.chats', {
